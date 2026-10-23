@@ -1,0 +1,119 @@
+{
+  "name": "Conversational AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        -368,
+        -240
+      ],
+      "id": "f1b4af55-f474-480b-ac7a-0974d47b6026",
+      "name": "When chat message received",
+      "webhookId": "3a850d73-83ea-45c0-ad01-e31ba05ae514"
+    },
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a helpful assistant"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -112,
+        -240
+      ],
+      "id": "91710929-8cc5-41c0-b4fd-692e43033b1f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-oss-20b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        -16
+      ],
+      "id": "e42358f8-9461-4fa0-a6da-dd8bee282197",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "ZNnbwxGPPSPyKhJ1",
+          "name": "Groq account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        16,
+        -16
+      ],
+      "id": "ea26a7dc-6089-44bf-be4f-7425c6c1143b",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "8f2c7f51-9d73-4b00-83da-b841af03ce15",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9311b4a246426c0af9bf34f1569cb83a4858e50205756e1ae01fa407802de5b2"
+  },
+  "nodeGroups": [],
+  "id": "siy8fZeK16bs01cG",
+  "tags": []
+}
